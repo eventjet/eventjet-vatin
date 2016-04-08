@@ -43,7 +43,7 @@ class VatinTest extends PHPUnit_Framework_TestCase
      */
     public function testInvalidNumber($number)
     {
-        $this->expectException(InvalidVatinFormatException::class);
+        $this->setExpectedException(InvalidVatinFormatException::class);
         new Vatin($number);
     }
 }

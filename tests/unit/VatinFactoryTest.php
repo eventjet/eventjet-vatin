@@ -27,14 +27,14 @@ class VatinFactoryTest extends PHPUnit_Framework_TestCase
 
     public function testFormatIsCheckedFirst()
     {
-        $this->expectException(InvalidVatinFormatException::class);
+        $this->setExpectedException(InvalidVatinFormatException::class);
         $this->factory->create('invalid-number');
     }
 
     public function testCreateThrowsExceptionIfNumberDoesNotExist()
     {
         $this->validator->method('isValid')->willReturn(false);
-        $this->expectException(VatinNotFoundException::class);
+        $this->setExpectedException(VatinNotFoundException::class);
 
         $this->factory->create('NL123456789B01');
     }
