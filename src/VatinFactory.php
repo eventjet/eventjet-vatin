@@ -27,7 +27,7 @@ class VatinFactory
     public function create($number)
     {
         $vies = new Vatin($number);
-        if (!$this->validator->isValid($number, true)) {
+        if (!$this->validator->isValid($number, false)) {
             throw new VatinNotFoundException(sprintf('The VAT IN "%s" was not found in VIES.', $number));
         }
         return $vies;
