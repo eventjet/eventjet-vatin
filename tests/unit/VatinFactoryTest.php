@@ -5,7 +5,6 @@ namespace EventjetTest\Unit\Vatin;
 use Ddeboer\Vatin\Validator;
 use Ddeboer\Vatin\Vies\Client;
 use Eventjet\Vatin\Exception\InvalidVatinFormatException;
-use Eventjet\Vatin\Exception\VatinNotFoundException;
 use Eventjet\Vatin\VatinFactory;
 use Eventjet\Vatin\VatinInterface;
 use PHPUnit_Framework_MockObject_MockObject;
@@ -29,14 +28,6 @@ class VatinFactoryTest extends PHPUnit_Framework_TestCase
     {
         $this->setExpectedException(InvalidVatinFormatException::class);
         $this->factory->create('invalid-number');
-    }
-
-    public function testCreateThrowsExceptionIfNumberDoesNotExist()
-    {
-        $this->validator->method('isValid')->willReturn(false);
-        $this->setExpectedException(VatinNotFoundException::class);
-
-        $this->factory->create('NL123456789B01');
     }
 
     public function testSuccessfulCreate()
