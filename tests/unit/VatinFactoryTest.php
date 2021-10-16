@@ -1,48 +1,47 @@
 <?php
 
+declare(strict_types=1);
+
 namespace EventjetTest\Unit\Vatin;
 
 use Ddeboer\Vatin\Validator;
 use Ddeboer\Vatin\Vies\Client;
 use Eventjet\Vatin\Exception\InvalidVatinFormatException;
 use Eventjet\Vatin\VatinFactory;
-use Eventjet\Vatin\VatinInterface;
-use PHPUnit_Framework_MockObject_MockObject;
-use PHPUnit_Framework_TestCase;
+use PHPUnit\Framework\MockObject\MockObject;
+use PHPUnit\Framework\TestCase;
 
-class VatinFactoryTest extends PHPUnit_Framework_TestCase
+class VatinFactoryTest extends TestCase
 {
-    /** @var Validator|PHPUnit_Framework_MockObject_MockObject */
+    /** @var Validator&MockObject */
     private $validator;
-    /** @var VatinFactory */
-    private $factory;
+    private VatinFactory $factory;
 
-    public function setUp()
+    protected function setUp(): void
     {
         $this->validator = $this->getMockBuilder(Validator::class)->getMock();
         $this->validator->method('getViesClient')->willReturn($this->mockViesClient());
         $this->factory = new VatinFactory($this->validator);
     }
 
-    public function testFormatIsCheckedFirst()
+    public function testFormatIsCheckedFirst(): void
     {
-        $this->setExpectedException(InvalidVatinFormatException::class);
+        $this->expectException(InvalidVatinFormatException::class);
         $this->factory->create('invalid-number');
     }
 
-    public function testSuccessfulCreate()
+    public function testSuccessfulCreate(): void
     {
         $this->validator->method('isValid')->willReturn(true);
         $number = 'NL123456789B01';
 
         $vatin = $this->factory->create($number);
 
-        $this->assertInstanceOf(VatinInterface::class, $vatin);
-        $this->assertSame($number, (string)$vatin);
+        self::assertSame($number, (string)$vatin);
     }
 
     /**
-     * @return Client|PHPUnit_Framework_MockObject_MockObject
+     * @return Client|MockObject
      */
     private function mockViesClient()
     {

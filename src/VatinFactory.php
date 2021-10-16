@@ -1,29 +1,21 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Eventjet\Vatin;
 
 use Ddeboer\Vatin\Validator;
 
 class VatinFactory
 {
-    /** @var Validator */
-    private $validator;
+    private Validator $validator;
 
-    /**
-     * VatinFactory constructor.
-     *
-     * @param Validator $validator
-     */
     public function __construct(Validator $validator)
     {
         $this->validator = $validator;
     }
 
-    /**
-     * @param string $number
-     * @return VatinInterface
-     */
-    public function create($number)
+    public function create(string $number): VatinInterface
     {
         return new Vatin($number);
     }
