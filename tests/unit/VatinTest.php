@@ -1,14 +1,19 @@
 <?php
 
+declare(strict_types=1);
+
 namespace EventjetTest\Unit\Vatin;
 
 use Eventjet\Vatin\Exception\InvalidVatinFormatException;
 use Eventjet\Vatin\Vatin;
-use PHPUnit_Framework_TestCase;
+use PHPUnit\Framework\TestCase;
 
-class VatinTest extends PHPUnit_Framework_TestCase
+class VatinTest extends TestCase
 {
-    public function validNumbers()
+    /**
+     * @return list<array{0: string}>
+     */
+    public function validNumbers(): array
     {
         return [
             ['NL123456789B01'],
@@ -17,20 +22,21 @@ class VatinTest extends PHPUnit_Framework_TestCase
     }
 
     /**
-     * @param string $number
      * @dataProvider validNumbers
      */
-    public function testValidNumber($number)
+    public function testValidNumber(string $number): void
     {
         $vatin = new Vatin($number);
 
-        $this->assertSame($number, (string)$vatin);
+        self::assertSame($number, (string)$vatin);
     }
 
-    public function invalidNumbers()
+    /**
+     * @return list<array{0: string}>
+     */
+    public function invalidNumbers(): array
     {
         return [
-            [null],
             [''],
             ['123456789'],
             ['XX123'],
@@ -41,9 +47,9 @@ class VatinTest extends PHPUnit_Framework_TestCase
      * @param mixed $number
      * @dataProvider invalidNumbers
      */
-    public function testInvalidNumber($number)
+    public function testInvalidNumber($number): void
     {
-        $this->setExpectedException(InvalidVatinFormatException::class);
+        $this->expectException(InvalidVatinFormatException::class);
         new Vatin($number);
     }
 }

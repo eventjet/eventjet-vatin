@@ -1,54 +1,49 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Eventjet\Vatin;
 
 use Ddeboer\Vatin\Validator;
 use Eventjet\Vatin\Exception\InvalidVatinFormatException;
 
+use function sprintf;
+
 class Vatin implements VatinInterface
 {
-    /** @var Validator */
-    private static $validator;
-    /** @var string */
-    private $vatin;
+    private static ?Validator $validator = null;
+    private string $vatin;
 
     /**
-     * Vatin constructor.
-     *
      * Checks if the VAT identification number is correctly formatted. If it isn\'t, an exception is thrown.
      *
      * The constructor does NOT check if the VAT IN exists. It only checks the format. If you also want to check for the
-     * existence, use the Eventjet\Vatin\VatinFactory instead.
+     * existence, use the {@see \Eventjet\Vatin\VatinFactory} instead.
      *
-     * @param string $vatin
      * @throws InvalidVatinFormatException If the format is invalid
      */
-    public function __construct($vatin)
+    public function __construct(string $vatin)
     {
         if (!self::getValidator()->isValid($vatin, false)) {
-            throw new InvalidVatinFormatException(sprintf(
-                '"%s" is not a valid VAT identification number.',
-                $vatin
-            ));
+            throw new InvalidVatinFormatException(
+                sprintf(
+                    '"%s" is not a valid VAT identification number.',
+                    $vatin
+                )
+            );
         }
         $this->vatin = $vatin;
     }
 
-    /**
-     * @return Validator
-     */
-    private static function getValidator()
+    private static function getValidator(): Validator
     {
         if (self::$validator === null) {
-            self::$validator = new Validator;
+            self::$validator = new Validator();
         }
         return self::$validator;
     }
 
-    /**
-     * @return string
-     */
-    public function __toString()
+    public function __toString(): string
     {
         return $this->vatin;
     }
