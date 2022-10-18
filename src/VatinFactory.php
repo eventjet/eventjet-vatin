@@ -8,7 +8,7 @@ use Ddeboer\Vatin\Validator;
 
 class VatinFactory
 {
-    private Validator $validator;
+    private Validator $validator; // @phpstan-ignore-line keep the dependency for BC
 
     public function __construct(Validator $validator)
     {
