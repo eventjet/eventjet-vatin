@@ -42,7 +42,7 @@ jobs:
           composer phpstan -- --no-progress
 
       - name: Infection coverage of changed lines
-        if: "!contains(github.event.pull_request.labels.*.name, 'skip-infection')"
+        if: !contains(github.event.pull_request.labels.*.name, 'skip-infection')
         run: |
           git fetch origin $GITHUB_BASE_REF $GITHUB_HEAD_REF
           vendor/bin/infection \
