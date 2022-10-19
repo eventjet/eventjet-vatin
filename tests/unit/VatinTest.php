@@ -44,10 +44,9 @@ class VatinTest extends TestCase
     }
 
     /**
-     * @param mixed $number
      * @dataProvider invalidNumbers
      */
-    public function testInvalidNumber($number): void
+    public function testInvalidNumber(string $number): void
     {
         $this->expectException(InvalidVatinFormatException::class);
         new Vatin($number);
