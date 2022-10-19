@@ -8,11 +8,11 @@ use Ddeboer\Vatin\Validator;
 
 class VatinFactory
 {
-    private Validator $validator; // @phpstan-ignore-line keep the dependency for BC
-
-    public function __construct(Validator $validator)
+    /**
+     * @phpstan-ignore-next-line keep the dependency for BC
+     */
+    public function __construct(?Validator $validator = null)
     {
-        $this->validator = $validator;
     }
 
     public function create(string $number): VatinInterface
