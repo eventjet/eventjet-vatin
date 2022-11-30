@@ -32,6 +32,22 @@ class VatinTest extends TestCase
     }
 
     /**
+     * @dataProvider invalidNumbers
+     */
+    public function testCheckInvalidFormat(string $number): void
+    {
+        self::assertFalse(Vatin::checkFormat($number));
+    }
+
+    /**
+     * @dataProvider validNumbers
+     */
+    public function testCheckValidFormat(string $number): void
+    {
+        self::assertTrue(Vatin::checkFormat($number));
+    }
+
+    /**
      * @return list<array{0: string}>
      */
     public function invalidNumbers(): array

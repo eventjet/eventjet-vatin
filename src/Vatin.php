@@ -24,7 +24,7 @@ class Vatin implements VatinInterface
      */
     public function __construct(string $vatin)
     {
-        if (!self::getValidator()->isValid($vatin, false)) {
+        if (!self::checkFormat($vatin)) {
             throw new InvalidVatinFormatException(
                 sprintf(
                     '"%s" is not a valid VAT identification number.',
@@ -33,6 +33,11 @@ class Vatin implements VatinInterface
             );
         }
         $this->vatin = $vatin;
+    }
+
+    public static function checkFormat(string $vatin): bool
+    {
+        return self::getValidator()->isValid($vatin);
     }
 
     private static function getValidator(): Validator
