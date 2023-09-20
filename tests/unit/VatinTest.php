@@ -13,11 +13,23 @@ class VatinTest extends TestCase
     /**
      * @return list<array{0: string}>
      */
-    public function validNumbers(): array
+    public static function validNumbers(): array
     {
         return [
             ['NL123456789B01'],
             ['IE9574245O'],
+        ];
+    }
+
+    /**
+     * @return list<array{0: string}>
+     */
+    public static function invalidNumbers(): array
+    {
+        return [
+            [''],
+            ['123456789'],
+            ['XX123'],
         ];
     }
 
@@ -45,18 +57,6 @@ class VatinTest extends TestCase
     public function testCheckValidFormat(string $number): void
     {
         self::assertTrue(Vatin::checkFormat($number));
-    }
-
-    /**
-     * @return list<array{0: string}>
-     */
-    public function invalidNumbers(): array
-    {
-        return [
-            [''],
-            ['123456789'],
-            ['XX123'],
-        ];
     }
 
     /**
