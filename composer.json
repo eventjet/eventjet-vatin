@@ -9,7 +9,7 @@
     "require-dev": {
         "eventjet/coding-standard": "^3.12",
         "infection/infection": "^0.27",
-        "maglnet/composer-require-checker": "^3.8 || ^4.0",
+        "maglnet/composer-require-checker": "^4.0",
         "phpstan/extension-installer": "^1.2",
         "phpstan/phpstan": "^1.8",
         "phpstan/phpstan-phpunit": "^1.1",
