@@ -11,7 +11,7 @@ class VatinFactory
     /**
      * @phpstan-ignore-next-line keep the dependency for BC
      */
-    public function __construct(?Validator $validator = null)
+    public function __construct(Validator|null $validator = null)
     {
     }
 

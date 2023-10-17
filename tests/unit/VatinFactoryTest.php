@@ -17,13 +17,6 @@ class VatinFactoryTest extends TestCase
     private $validator;
     private VatinFactory $factory;
 
-    protected function setUp(): void
-    {
-        $this->validator = $this->getMockBuilder(Validator::class)->getMock();
-        $this->validator->method('getViesClient')->willReturn($this->mockViesClient());
-        $this->factory = new VatinFactory($this->validator);
-    }
-
     public function testFormatIsCheckedFirst(): void
     {
         $this->expectException(InvalidVatinFormatException::class);
@@ -38,6 +31,13 @@ class VatinFactoryTest extends TestCase
         $vatin = $this->factory->create($number);
 
         self::assertSame($number, (string)$vatin);
+    }
+
+    protected function setUp(): void
+    {
+        $this->validator = $this->getMockBuilder(Validator::class)->getMock();
+        $this->validator->method('getViesClient')->willReturn($this->mockViesClient());
+        $this->factory = new VatinFactory($this->validator);
     }
 
     /**

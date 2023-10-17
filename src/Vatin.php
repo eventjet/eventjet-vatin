@@ -11,8 +11,8 @@ use function sprintf;
 
 class Vatin implements VatinInterface
 {
-    private static ?Validator $validator = null;
     private string $vatin;
+    private static Validator|null $validator = null;
 
     /**
      * Checks if the VAT identification number is correctly formatted. If it isn\'t, an exception is thrown.
@@ -28,8 +28,8 @@ class Vatin implements VatinInterface
             throw new InvalidVatinFormatException(
                 sprintf(
                     '"%s" is not a valid VAT identification number.',
-                    $vatin
-                )
+                    $vatin,
+                ),
             );
         }
         $this->vatin = $vatin;
