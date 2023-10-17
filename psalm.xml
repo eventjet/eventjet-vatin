@@ -15,7 +15,4 @@
     <plugins>
         <pluginClass class="Psalm\PhpUnitPlugin\Plugin"/>
     </plugins>
-    <issueHandlers>
-        <DeprecatedClass errorLevel="info"/>
-    </issueHandlers>
 </psalm>
